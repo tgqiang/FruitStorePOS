@@ -4,7 +4,7 @@ export interface CartItem {
   quantity: number
 }
 
-export interface CustomApiResponseData {
+export interface CustomPostApiResponseData {
   message: string,
   details: string
 }
