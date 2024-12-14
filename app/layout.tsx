@@ -71,21 +71,21 @@ export default function RootLayout({
 
   // ===== PARENT CART LOGIC ===== //
   function onCartItemAdded(item: CartItem) {
-    let newCartItems = cartItems.slice();
+    const newCartItems = cartItems.slice();
     newCartItems.push(item);
     syncCartToLocalStorage(newCartItems);
   }
 
   function onCartItemRemoved(item: CartItem) {
     const targetItemIdx = cartItems.findIndex((cartItem) => cartItem.id === item.id);
-    let newCartItems = cartItems.slice();
+    const newCartItems = cartItems.slice();
     newCartItems.splice(targetItemIdx, 1);
     syncCartToLocalStorage(newCartItems);
   }
 
   function onCartItemChanged(item: CartItem) {
     const targetItemIdx = cartItems.findIndex((cartItem) => cartItem.id === item.id);
-    let newCartItems = cartItems.slice();
+    const newCartItems = cartItems.slice();
     newCartItems[targetItemIdx] = item;
     syncCartToLocalStorage(newCartItems);
   }

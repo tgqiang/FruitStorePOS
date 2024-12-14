@@ -6,7 +6,7 @@ import {
   CartContext,
   CartEventContext,
 } from "@/app/lib/cart-context";
-import { useContext, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Fruit } from "@prisma/client";
 import { InventoryContext } from "@/app/lib/inventory-context";
@@ -34,7 +34,7 @@ export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('Unsubmitted');
 
-  function onCartSubmit(_event: any) {
+  function onCartSubmit(_event: MouseEvent<HTMLButtonElement>) {
     setIsSubmitting(true);
     fetch('/api/cart', {
       method: 'POST',
@@ -42,7 +42,7 @@ export default function Page() {
     })
       .then((res) => {
         if (res.ok) {
-          onCartPostSubmit(null);
+          onCartPostSubmit();
         } else {
           setIsSubmitting(false);
           setSubmitStatus('Error');
@@ -54,7 +54,7 @@ export default function Page() {
       });
   }
 
-  function onCartPostSubmit(_event: any) {
+  function onCartPostSubmit() {
     cartEventContext.clearCart();
     setIsSubmitting(false);
     setSubmitStatus('Success');

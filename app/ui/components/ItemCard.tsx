@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import * as Card from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, MouseEvent, useContext, useState } from "react";
 import { Fruit } from "@prisma/client";
 import { CartItem } from "@/app/lib/data";
 import { CartContext } from "@/app/lib/cart-context";
@@ -27,7 +27,7 @@ export default function ItemCard({
   const [quantity, setQuantity] = useState(cartItems.find((item: CartItem) => item.id === fruit.id)?.quantity || 0);
   const nameLowerCase = fruit.name.toLowerCase();
 
-  function addToCart(_event: any) {
+  function addToCart(_event: MouseEvent<HTMLButtonElement> | undefined = undefined) {
     setQuantity(1);
     setAddedToCart(true);
     onCartItemAdded({
@@ -37,7 +37,7 @@ export default function ItemCard({
     });
   }
 
-  function removeFromCart(_event: any) {
+  function removeFromCart(_event: MouseEvent<HTMLButtonElement> | undefined = undefined) {
     setAddedToCart(false);
     setQuantity(0);
     onCartItemRemoved({
@@ -56,7 +56,7 @@ export default function ItemCard({
         ? fruit.stock
         : newQuantity;
     if (clampedQuantity <= 0) {
-      removeFromCart(null);
+      removeFromCart();
     } else {
       setQuantity(clampedQuantity);
       onCartItemChanged({

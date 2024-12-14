@@ -15,7 +15,7 @@ function validateUserCart(userCart: CartItem[], targetItems: Fruit[])
 : [number, CustomPostApiResponseData] {
   const resBadRequestCode = 400;
   let resCode = 201;
-  let resData: CustomPostApiResponseData = {
+  const resData: CustomPostApiResponseData = {
     message: 'Cart creation success',
     details: ''
   };
@@ -59,7 +59,7 @@ function validateUserCart(userCart: CartItem[], targetItems: Fruit[])
 function computeRemainingInventoryAfterCartDeduction(
   userCart: CartItem[], targetItems: Fruit[])
 : Fruit[] {
-  let remainingStock = targetItems.slice();
+  const remainingStock = targetItems.slice();
   for (let i = 0; i < remainingStock.length; i++) {
     remainingStock[i].stock -= userCart[i].quantity;
   }
@@ -82,7 +82,7 @@ export default async function handler(
 
       res.status(200).json(unfulfilledCarts);
     } else if (req.method === 'POST') {
-      let userCart: CartItem[] = JSON.parse(req.body);
+      const userCart: CartItem[] = JSON.parse(req.body);
       userCart.sort((a, b) => a.id - b.id);
 
       const targetItems = await prisma.fruit.findMany({
@@ -120,10 +120,10 @@ export default async function handler(
           }),
           ...inventoryUpdates
         ])
-        .then((_data: any) => {
+        .then((_data) => {
           res.status(resCode).json(resData);
         })
-        .catch((_err: any) => {
+        .catch((_err) => {
           res.status(400).json({ message: 'Cart creation error.', details: 'Internal error' });
         });
       }

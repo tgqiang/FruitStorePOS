@@ -11,8 +11,8 @@ export const CartEventContext = createContext<{
   onCartItemChanged: (item: CartItem) => void,
   clearCart: () => void
 }>({
-  onCartItemAdded: (item) => {},
-  onCartItemRemoved: (item) => {},
-  onCartItemChanged: (item) => {},
+  onCartItemAdded: (_item) => {},
+  onCartItemRemoved: (_item) => {},
+  onCartItemChanged: (_item) => {},
   clearCart: () => {}
 });

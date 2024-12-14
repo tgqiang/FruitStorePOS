@@ -57,13 +57,13 @@ export default function Page() {
     })
       .then((res) => {
         if (res.ok) {
-          let remainingUnfulfilledOrders = orders.slice();
+          const remainingUnfulfilledOrders = orders.slice();
           remainingUnfulfilledOrders.splice(
             remainingUnfulfilledOrders.findIndex((order) => order.id === orderId),
             1
           );
           setOrders(remainingUnfulfilledOrders);
-          onPostMarkOrder(null);
+          onPostMarkOrder();
           toast({
             description: 'Successfully marked this order as fulfilled.'
           });
@@ -82,7 +82,7 @@ export default function Page() {
       });
   }
 
-  function onPostMarkOrder(_event: any) {
+  function onPostMarkOrder() {
     setIsSubmitting(false);
   }
 

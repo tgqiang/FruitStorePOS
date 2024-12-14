@@ -15,10 +15,10 @@ export default async function handler(
           fulfilled: true
         }
       })
-      .then((_data: any) => {
+      .then((_data) => {
         res.status(201).json({ message: 'Order fulfilled.', details: '' });
       })
-      .catch((_err: any) => {
+      .catch((_err) => {
         res.status(400).json({
           message: 'Order fulfil error.',
           details: 'Order may not exist, or could be an internal error.'
