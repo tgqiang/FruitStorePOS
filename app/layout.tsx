@@ -8,6 +8,7 @@ import {
 } from "react";
 import { inter } from "./ui/fonts";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 import {
   CartContext,
   CartEventContext,
@@ -17,6 +18,7 @@ import {
 import { CartItem } from "@/app/lib/data";
 import Cart from "@/app/ui/components/Cart";
 import { InventoryContext } from "@/app/lib/inventory-context";
+import { Cherry } from "lucide-react";
 
 // export const metadata: Metadata = {
 //   title: "Fruit Store",
@@ -120,9 +122,10 @@ export default function RootLayout({
               }}
             >
               <div className="flex flex-col justify-start items-center justify-items-center min-w-screen min-h-screen">
-                <header className="sticky top-0 z-10 bg-white flex flex-col w-full h-1/5 items-center justify-between px-4 py-2 md:p-8 space-y-4">
+                <header className="sticky top-0 z-10 bg-white flex flex-col w-full h-1/5 items-center justify-between p-4 md:p-8 space-y-4">
                   <div className="flex flex-row w-full h-1/5 items-center justify-between">
-                    <Link href="/">
+                    <Link className="flex flex-row space-x-2" href="/">
+                      <Cherry />
                       <h1 className="text-xl font-bold">Fruit Store</h1>
                     </Link>
                     <div className="flex flex-row space-x-2 items-center justify-between">
@@ -139,6 +142,7 @@ export default function RootLayout({
                   {children}
                 </main>
               </div>
+              <Toaster />
             </InventoryContext.Provider>
           </CartEventContext.Provider>
         </CartContext.Provider>
