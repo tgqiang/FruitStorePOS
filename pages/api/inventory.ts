@@ -6,9 +6,13 @@ export default async function handler(
   res: NextApiResponse) {
     // Query inventory with optional search params
     if (req.method === 'GET') {
-      const inventory = await prisma.fruit.findMany({});
+      const inventory = await prisma.fruit.findMany({
+        orderBy: {
+          id: 'asc'
+        }
+      });
       res.status(200).json(inventory);
     } else {
-      res.status(400).json({ message: 'Method not available.' });
+      res.status(400).json({ message: 'Method not available.', details: '' });
     }
 }
