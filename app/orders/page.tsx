@@ -113,7 +113,7 @@ export default function Page() {
                 <Table.TableCell>
                   <ol>
                     {
-                      (cart.items as Array<CartItem>).map((item) => {
+                      (cart.items as unknown as Array<CartItem>).map((item) => {
                         return (
                             <li key={item.id}>
                               {
@@ -129,7 +129,7 @@ export default function Page() {
                 </Table.TableCell>
                 <Table.TableCell>$
                   {
-                    (cart.items as Array<CartItem>)
+                    (cart.items as unknown as Array<CartItem>)
                     .reduce((prev, curr) => prev + curr.price * curr.quantity, 0)
                     .toFixed(2)
                   }

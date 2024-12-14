@@ -99,7 +99,7 @@ export default async function handler(
       const [resCode, resData] = validateUserCart(userCart, targetItems);
 
       if (resCode === 201) {
-        const cartJson = userCart as Prisma.JsonArray;
+        const cartJson = userCart as unknown as Prisma.JsonArray;
         const remainingSubInventory = computeRemainingInventoryAfterCartDeduction(userCart, targetItems);
         const inventoryUpdates = remainingSubInventory.map((item: Fruit) => {
           return prisma.fruit.update({
