@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/app/lib/prisma-client";
 import { Fruit, Prisma } from "@prisma/client";
-import { CartItem, CustomApiResponseData } from "@/app/lib/data";
-import { JsonArray } from "@prisma/client/runtime/library";
+import { CartItem, CustomPostApiResponseData } from "@/app/lib/data";
 
 /**
  * Validates a user-provided cart with a known (sub)inventory.
@@ -13,10 +12,10 @@ import { JsonArray } from "@prisma/client/runtime/library";
  * @returns The intended response details in the form `[responseCode, responseData]`
  */
 function validateUserCart(userCart: CartItem[], targetItems: Fruit[])
-: [number, CustomApiResponseData] {
+: [number, CustomPostApiResponseData] {
   const resBadRequestCode = 400;
   let resCode = 201;
-  let resData: CustomApiResponseData = {
+  let resData: CustomPostApiResponseData = {
     message: 'Cart creation success',
     details: ''
   };
@@ -64,7 +63,6 @@ function computeRemainingInventoryAfterCartDeduction(
   for (let i = 0; i < remainingStock.length; i++) {
     remainingStock[i].stock -= userCart[i].quantity;
   }
-  console.log(remainingStock);
   return remainingStock;
 }
 
@@ -73,8 +71,16 @@ export default async function handler(
   res: NextApiResponse) {
     // Query inventory with optional search params
     if (req.method === 'GET') {
-      const inventory = await prisma.fruit.findMany({});
-      res.status(200).json(inventory);
+      const unfulfilledCarts = await prisma.cart.findMany({
+        where: {
+          fulfilled: false
+        },
+        orderBy: {
+          createdAt: 'asc'
+        }
+      });
+
+      res.status(200).json(unfulfilledCarts);
     } else if (req.method === 'POST') {
       let userCart: CartItem[] = JSON.parse(req.body);
       userCart.sort((a, b) => a.id - b.id);
