@@ -42,9 +42,10 @@ export default function Page() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function formatOrderDate(dateString: string) : string {
-    const date = new Date(dateString);
-    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} (${date.getHours()}:${date.getMinutes()}:${date.getSeconds()})`;
+  function formatOrderDate(date: Date) : string {
+    // Workaround to convert Prisma-returned Date to a working Date object.
+    const obtainedDate = new Date(date);
+    return `${obtainedDate.getDate()}-${obtainedDate.getMonth()}-${obtainedDate.getFullYear()} (${obtainedDate.getHours()}:${obtainedDate.getMinutes()}:${obtainedDate.getSeconds()})`;
   }
 
   function onMarkOrderFulfilled(orderId: string) {
