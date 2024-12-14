@@ -36,7 +36,6 @@ export default function Page() {
 
   function onCartSubmit(_event: any) {
     setIsSubmitting(true);
-    // TODO: trigger POST request
     fetch('/api/cart', {
       method: 'POST',
       body: JSON.stringify(cartItems)
@@ -109,7 +108,7 @@ export default function Page() {
               )
             : (
               <Button
-                disabled={submitStatus === 'Success'}
+                disabled={submitStatus === 'Success' || cartItems.length <= 0}
                 onClick={onCartSubmit}
               >
                 {submitStatus === 'Success' ? 'Submitted!' : 'Submit'}
