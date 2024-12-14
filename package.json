@@ -2,12 +2,15 @@
   "name": "fruitstorepos",
   "version": "0.1.0",
   "private": true,
-  "prisma": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -32,7 +35,6 @@
     "react-hook-form": "^7.54.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "ts-node": "^10.9.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -43,6 +45,7 @@
     "eslint-config-next": "14.2.16",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
