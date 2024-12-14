@@ -33,11 +33,13 @@ model User {
 }
 
 model Cart {
-  id     String  @id @default(uuid())
-  closed Boolean @default(false)
-  items  Json    @default("[]")
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  closed    Boolean  @default(false)
+  fulfilled Boolean  @default(false)
+  items     Json     @default("[]")
+  userId    String?
+  User      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
 
 enum Role {
