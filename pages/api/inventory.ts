@@ -4,7 +4,6 @@ import { prisma } from "@/app/lib/prisma-client";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse) {
-    // Query inventory with optional search params
     if (req.method === 'GET') {
       const inventory = await prisma.fruit.findMany({
         orderBy: {

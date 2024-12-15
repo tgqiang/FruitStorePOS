@@ -4,7 +4,6 @@ import { prisma } from "@/app/lib/prisma-client";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse) {
-    // Query inventory with optional search params
     if (req.method === 'POST') {
       const order : { id: string } = JSON.parse(req.body);
       await prisma.cart.update({

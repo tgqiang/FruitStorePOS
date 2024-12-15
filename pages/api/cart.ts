@@ -69,7 +69,6 @@ function computeRemainingInventoryAfterCartDeduction(
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse) {
-    // Query inventory with optional search params
     if (req.method === 'GET') {
       const unfulfilledCarts = await prisma.cart.findMany({
         where: {

@@ -4,7 +4,6 @@ import { createHash } from 'node:crypto';
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse) {
-    // Query inventory with optional search params
     if (req.method === 'POST') {
       const data : { key: string } = JSON.parse(req.body);
       const hash = createHash('sha-256').update(data.key).digest('hex');
